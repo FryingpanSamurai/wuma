@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const port = 8000;
 const {v4: uuidv4} = require('uuid').v4;
-const {MongoClient} = require('mongodb');
-const mongoDB = process.env.MONGODB || 'mongodb+srv://sadmin:aPKcFYq6EVqr33z@cluster0.jlhqz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const { MongoClient } = require('mongodb');
+const mongoDB = process.env.MONGODB || 'mongodb+srv://sadmin0:DXNZbV0YUsqA1tNZ@wuma.ufcwxgb.mongodb.net/?retryWrites=true&w=majority';
 const http = require('http');
 require('dotenv').config({path:'../.env'});
 
@@ -28,102 +28,20 @@ startServer = () => {
         console.log(`Server listening on PORT ${port}`);
     });
 
-    app.get('/colleges', async (req, res) => {
+    app.get('/blasts', async (req, res) => {
         const client = new MongoClient(mongoDB);
-
-        try{
+        try {
             await client.connect();
-            const db = client.db('userdb');
+            const db = client.db('wumaDB');
 
-            const colleges = db.collection('colleges');
-            const mycolleges = await colleges.find({});
-            
-            const mca = await mycolleges.toArray();
-            res.send(mca);
+            const temp = db.collection('blasts');
+            const blasts = await temp.find({});
+
+            const mb = await blasts.toArray();
+            res.send(mb);
         } catch(e) {
             console.log(e.stack);
-        }
-        finally{
-            await client.close();
-        }
-    });
-
-    app.get('/jobs', async (req, res) => {
-        const client = new MongoClient(mongoDB);
-
-        try{
-            await client.connect();
-            const db = client.db('userdb');
-
-            const jobs = db.collection('jobs');
-            const myjobs = await jobs.find({});
-
-            const mja = await myjobs.toArray();
-            res.send(mja);
-        } catch(e) {
-            console.log(e.stack);
-        }
-        finally{
-            await client.close();
-        }
-    });
-
-    app.get('/awards', async (req, res) => {
-        const client = new MongoClient(mongoDB);
-
-        try{
-            await client.connect();
-            const db = client.db('userdb');
-
-            const awards = db.collection('awards');
-            const myawards = await awards.find({});
-
-            const mawa = await myawards.toArray();
-            res.send(mawa);
-        } catch(e) {
-            console.log(e.stack);
-        }
-        finally{
-            await client.close();
-        }
-    });
-
-    app.get('/activities', async (req, res) => {
-        const client = new MongoClient(mongoDB);
-
-        try{
-            await client.connect();
-            const db = client.db('userdb');
-
-            const activities = db.collection('activities');
-            const myactivities = await activities.find({});
-
-            const maa = await myactivities.toArray();
-            res.send(maa);
-        } catch(e) {
-            console.log(e.stack);
-        }
-        finally{
-            await client.close();
-        }
-    });
-
-    app.get('/projects', async (req, res) => {
-        const client = new MongoClient(mongoDB);
-
-        try{
-            await client.connect();
-            const db = client.db('userdb');
-
-            const projects = db.collection('projects');
-            const myprojects = await projects.find({});
-
-            const mpa = await myprojects.toArray();
-            res.send(mpa);
-        } catch(e) {
-            console.log(e.stack);
-        }
-        finally{
+        } finally {
             await client.close();
         }
     });
