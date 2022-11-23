@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const port = 8000;
 const {v4: uuidv4} = require('uuid').v4;
-const { MongoClient } = require('mongodb');
-const mongoDB = process.env.MONGODB || 'mongodb+srv://sadmin0:DXNZbV0YUsqA1tNZ@wuma.ufcwxgb.mongodb.net/?retryWrites=true&w=majority';
+const { MongoClient, ObjectId } = require('mongodb');
+const mongoDB = process.env.MONGODB || 'mongodb+srv://<user>:<pwd>@wuma.ufcwxgb.mongodb.net/?retryWrites=true&w=majority';
 const http = require('http');
 require('dotenv').config({path:'../.env'});
 
@@ -38,6 +38,24 @@ startServer = () => {
             const blasts = await temp.find({});
 
             const mb = await blasts.toArray();
+            res.send(mb);
+        } catch(e) {
+            console.log(e.stack);
+        } finally {
+            await client.close();
+        }
+    });
+
+    app.get('/users/:uid', async (req, res) => {
+        const client = new MongoClient(mongoDB);
+        try {
+            await client.connect();
+            const db = client.db('wumaDB');
+
+            const temp = db.collection('users');
+            const user = await temp.find({ '_id': ObjectId(req.params.uid) });
+
+            const mb = await user.toArray();
             res.send(mb);
         } catch(e) {
             console.log(e.stack);

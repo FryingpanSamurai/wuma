@@ -1,5 +1,6 @@
 .mainnav {
-    display: flex;
+    background-color: #343842;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
 
 .searchbtn {

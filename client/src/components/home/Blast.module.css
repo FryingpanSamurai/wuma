@@ -1,0 +1,26 @@
+.blastmain {
+    background-color: #343842;
+    display: flex;
+    width: 70%;
+    border-radius: 10px;
+}
+
+.avatar {
+    position: relative;
+    left: -10px;
+    top: -10px;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    offset: 10px 10px;
+}
+
+.username{
+    font-size:x-large;
+    color: #FAAA33;
+}
+
+.message{
+    font-size: large;
+}

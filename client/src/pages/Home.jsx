@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
+import { Form } from "react-bootstrap";
 import FeedContainer from "../components/home/FeedContainer";
 import styles from "./Home.module.css";
 
@@ -10,7 +11,7 @@ const Home = () => {
     let isMounted = useRef(false);
 
     // callback will be used later for search
-    const fetchBlasts = useCallback( async () => {
+    const fetchBlasts = useCallback(async () => {
             if (isMounted.current) 
             {
                 try {
@@ -40,6 +41,11 @@ const Home = () => {
     return (
         <>
             <div className={styles.main}>
+                <Form.Control 
+                    className={styles.mysearch} 
+                    size="lg" 
+                    type="text" 
+                    placeholder="target" />
                 <FeedContainer blasts={blasts} />
             </div>
         </>
